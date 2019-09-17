@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 public interface NikeApi {
 
     @GET("define")
-    Call<NikeResponse> getNikeListDefinitons(@Query("term") String term, @Query("X-RapidAPI-Key") String key);
+    Call<NikeResponse> getNikeListDefinitions(@Query("term") String term, @Query("X-RapidAPI-Key") String key);
 
 }

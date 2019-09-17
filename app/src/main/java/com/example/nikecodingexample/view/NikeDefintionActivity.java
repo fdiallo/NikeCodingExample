@@ -37,15 +37,15 @@ public class NikeDefintionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nike_defintion);
 
         Bundle extras = getIntent().getExtras();
-        String term = extras.getString("term");
+        if(extras != null) {
+            String term = extras.getString("term");
+        }
 
         rvNikeDefinitions = findViewById(R.id.rvNikeDefinitions);
 
         nikeViewModel = ViewModelProviders.of(this).get(NikeViewModel.class);
         nikeViewModel.init();
 
-
-        nikeViewModel = ViewModelProviders.of(this).get(NikeViewModel.class);
         nikeViewModel.init();
         nikeViewModel.getNikeDefinitionsRepository().observe(this, new Observer<NikeResponse>() {
             @Override
@@ -87,13 +87,13 @@ public class NikeDefintionActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                nikeAdapter.getFilter().filter(query);
+                nikeViewModel.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                nikeAdapter.getFilter().filter(query);
+                nikeViewModel.getFilter().filter(query);
                 return false;
             }
         });

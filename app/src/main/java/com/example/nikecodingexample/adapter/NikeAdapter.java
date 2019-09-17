@@ -19,11 +19,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NikeAdapter extends RecyclerView.Adapter<NikeAdapter.NikeViewHolder> implements Filterable {
+public class NikeAdapter extends RecyclerView.Adapter<NikeAdapter.NikeViewHolder> {
 
     Context context;
     ArrayList<Definition> definitionsList;
-    private List<Definition> definitionsListFiltered;
 
     public NikeAdapter(Context context, ArrayList<Definition> defs) {
         this.context = context;
@@ -41,6 +40,7 @@ public class NikeAdapter extends RecyclerView.Adapter<NikeAdapter.NikeViewHolder
     public void onBindViewHolder(@NonNull NikeAdapter.NikeViewHolder holder, int position) {
         holder.tvDefinition.setText(definitionsList.get(position).getDefinition());
         holder.tvPermalink.setText(definitionsList.get(position).getPermalink());
+
         Picasso.get().load(definitionsList.get(position).getThumbs_up()).into(holder.ivThumbs_up);
         Picasso.get().load(definitionsList.get(position).getThumbs_down()).into(holder.ivThumbs_down);
     }
@@ -67,38 +67,5 @@ public class NikeAdapter extends RecyclerView.Adapter<NikeAdapter.NikeViewHolder
 
 
         }
-    }
-
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    definitionsListFiltered = definitionsList;
-                } else {
-                    List<Definition> filteredList = new ArrayList<>();
-                    for (Definition definition : definitionsList) {
-                        if (definition.getDefinition().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(definition);
-                        }
-                    }
-                    definitionsListFiltered = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = definitionsListFiltered;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                definitionsListFiltered = (ArrayList<Definition>) filterResults.values;
-
-                notifyDataSetChanged();
-            }
-        };
     }
 }

@@ -29,7 +29,7 @@ public class NikeRepository {
 
     public MutableLiveData<NikeResponse> getDefintions(String term, String key){
         final MutableLiveData<NikeResponse> nikeDefinitionsData = new MutableLiveData<>();
-        nikeApi.getNikeListDefinitons(term, key).enqueue(new Callback<NikeResponse>() {
+        nikeApi.getNikeListDefinitions(term, key).enqueue(new Callback<NikeResponse>() {
             @Override
             public void onResponse(Call<NikeResponse> call,
                                    Response<NikeResponse> response) {
